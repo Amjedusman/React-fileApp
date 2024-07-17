@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import  { useState } from 'react';
+import Dropdown from './Dropdown';
+import FileViewer from './FileViewer';
+import ChatBot from './ChatBot';
+import './App.css';
+
+// Mock file contents for demonstration
+const files = ['File1.txt', 'File2.txt', 'File3.txt'];
+const fileContents = {
+  'File1.txt': 'Content of File 1...',
+  'File2.txt': 'Content of File 2...',
+  'File3.txt': 'Content of File 3...',
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedFileContent, setSelectedFileContent] = useState('');
+
+  const handleFileSelect = (fileName) => {
+    setSelectedFileContent(fileContents[fileName]);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      <h1>File Viewer with AI Chatbot</h1>
+      <Dropdown files={files} onFileSelect={handleFileSelect} />
+      {selectedFileContent && <FileViewer content={selectedFileContent} />}
+      {selectedFileContent && <ChatBot fileContent={selectedFileContent} />}
+    </div>
+  );
 }
 
-export default App
+export default App;
