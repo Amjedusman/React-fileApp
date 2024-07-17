@@ -17,6 +17,7 @@ const ChatBot = ({ fileContent }) => {
         max_tokens: 150,
       }),
     });
+
     const data = await response.json();
     const aiMessage = data.choices[0].text.trim();
     setMessages([...messages, { user: input, ai: aiMessage }]);
@@ -46,3 +47,4 @@ const ChatBot = ({ fileContent }) => {
 };
 
 export default ChatBot;
+
